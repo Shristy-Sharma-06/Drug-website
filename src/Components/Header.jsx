@@ -15,7 +15,6 @@ const Header = () => {
     { name: "Service", slug: "/service" },
     { name: "Product", slug: "/product" },
     { name: "ContactUs", slug: "/contact" },
-    { name: "Assays", slug: "/assays" },
     { name: "Login", slug: "/login" },
   ];
 
