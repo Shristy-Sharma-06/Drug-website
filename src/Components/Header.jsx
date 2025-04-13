@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Search, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import logo from './Images/logo.png';
+import logo from "./Images/logo.png";
 import More from "./More";
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Header = () => {
     { name: "Product", slug: "/product" },
     { name: "ContactUs", slug: "/contact" },
     { name: "Assays", slug: "/assays" },
-    { name: "Word Finder", slug: "/word-finder" },
+    { name: "Login", slug: "/login" },
   ];
 
   return (
@@ -24,11 +25,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <div className="w-26 h-16 flex items-center justify-center">
-            <img
-              src={logo}
-              alt="logo"
-              className="h-full object-contain"
-            />
+            <img src={logo} alt="logo" className="h-full object-contain" />
           </div>
         </div>
 
@@ -55,8 +52,10 @@ const Header = () => {
                 >
                   {item.name}
                 </button>
+
               </li>
             ))}
+            
             <More />
           </ul>
         </nav>
