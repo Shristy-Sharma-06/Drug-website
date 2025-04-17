@@ -4,8 +4,9 @@ import Footer from './Components/Footer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import  Home  from './Components/Home';
 import  Contact  from './Components/Contact';
-import Login from './Components/Login';
 import About from './Components/About'
+import Service from './Components/Service';
+import Login from './Components/Login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path='/contact'element={<Contact/>} />
       <Route path='/login'element={<Login/>} />
       <Route path='/about'element={<About/>} />
+      <Route path='/service'element={<Service/>} />
     </Routes>
     <Footer/>
     </BrowserRouter>
