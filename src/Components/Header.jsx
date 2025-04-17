@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {useSelector,useDispatch} from "react-redux"
 import {logout} from '../features/userSlice'
 import logo from "./Images/logo.png";
+import Product from "./Product";
 import More from "./More";
 
 
@@ -17,7 +18,7 @@ const Header = () => {
     { name: "Home", slug: "/" },
     { name: "About", slug: "/about" },
     { name: "Service", slug: "/service" },
-    { name: "Product", slug: "/product" },
+    // { name: "Product", slug: "/product" },
     { name: "ContactUs", slug: "/contact" },
     // { name: "Login", slug: "/login" },
   ];
@@ -64,7 +65,7 @@ const Header = () => {
 
               </li>
             ))}
-
+          <Product/> 
             <More />
 
             {/* Conditional Login/Logout */}
