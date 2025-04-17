@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Search, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import {useSelector,useDispatch} from "react-redux"
+import {logout} from '../features/userSlice'
 import logo from "./Images/logo.png";
 import More from "./More";
 
 
 const Header = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isLoggedIn = useSelector((state)=>state.users.isLoggedIn);
 
   const navItems = [
     { name: "Home", slug: "/" },
@@ -15,8 +19,14 @@ const Header = () => {
     { name: "Service", slug: "/service" },
     { name: "Product", slug: "/product" },
     { name: "ContactUs", slug: "/contact" },
-    { name: "Login", slug: "/login" },
+    // { name: "Login", slug: "/login" },
   ];
+
+  const handleLogout=(e)=>{
+    e.preventDefault();
+    dispatch(logout());
+    navigate("/");
+  }
 
   return (
     <header className="bg-[#0D2C42] text-white px-6 py-3 sticky top-0 z-50 w-full">
@@ -54,8 +64,27 @@ const Header = () => {
 
               </li>
             ))}
-            
+
             <More />
+
+            {/* Conditional Login/Logout */}
+            <li>
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="inline-block px-4 py-2 duration-200 hover:bg-blue-100 rounded-full hover:text-black"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="inline-block px-4 py-2 duration-200 hover:bg-blue-100 rounded-full hover:text-black"
+                >
+                  Login
+                </button>
+              )}
+            </li>
           </ul>
         </nav>
 
@@ -88,6 +117,31 @@ const Header = () => {
               </li>
             ))}
             <More />
+
+            <li>
+              {isLoggedIn ? (
+                <button
+                  onClick={(e) => {
+                    handleLogout(e);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-blue-100 hover:text-black rounded"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-blue-100 hover:text-black rounded"
+                >
+                  Login
+                </button>
+              )}
+            </li>
+
           </ul>
         </nav>
       )}
