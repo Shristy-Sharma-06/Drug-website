@@ -117,6 +117,7 @@ const Header = () => {
                 </button>
               </li>
             ))}
+            <Product/>
             <More />
 
             <li>
