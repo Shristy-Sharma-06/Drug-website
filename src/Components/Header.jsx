@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Search, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import {useSelector,useDispatch} from "react-redux"
-import {logout} from '../features/userSlice'
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../features/userSlice";
 import logo from "./Images/logo.png";
 import Product from "./Product";
 import More from "./More";
 
-
 const Header = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isLoggedIn = useSelector((state)=>state.users.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
 
   const navItems = [
     { name: "Home", slug: "/" },
@@ -23,11 +22,11 @@ const Header = () => {
     // { name: "Login", slug: "/login" },
   ];
 
-  const handleLogout=(e)=>{
+  const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
     navigate("/");
-  }
+  };
 
   return (
     <header className="bg-[#0D2C42] text-white px-6 py-3 sticky top-0 z-50 w-full">
@@ -62,10 +61,9 @@ const Header = () => {
                 >
                   {item.name}
                 </button>
-
               </li>
             ))}
-          <Product/> 
+            <Product />
             <More />
 
             {/* Conditional Login/Logout */}
@@ -117,7 +115,7 @@ const Header = () => {
                 </button>
               </li>
             ))}
-            <Product/>
+            <Product />
             <More />
 
             <li>
@@ -143,7 +141,6 @@ const Header = () => {
                 </button>
               )}
             </li>
-
           </ul>
         </nav>
       )}

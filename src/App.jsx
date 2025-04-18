@@ -7,6 +7,12 @@ import  Contact  from './Components/Contact';
 import About from './Components/About'
 import Service from './Components/Service';
 import Login from './Components/Login';
+import Product from './Components/Product';
+import More1 from './Components/More1';
+import More2 from './Components/More2';
+import More3 from './Components/More3';
+
+
 
 function App() {
   return (
@@ -19,6 +25,12 @@ function App() {
       <Route path='/login'element={<Login/>} />
       <Route path='/about'element={<About/>} />
       <Route path='/service'element={<Service/>} />
+      <Route path=''element={<Product/>}/>
+      <Route path='/product/more1'element={<More1/>}/>
+      <Route path='/product/more2'element={<More2/>}/>
+      <Route path='/product/more3'element={<More3/>}/>
+      
+      
     </Routes>
     <Footer/>
     </BrowserRouter>

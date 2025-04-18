@@ -11,6 +11,8 @@ function Home() {
     { id: 2, title: 'ffghgh', price: '$6889', img: image3 },
     { id: 3, title: 'ffghgh', price: '$6889', img: image4 },
     { id: 4, title: 'ffghgh', price: '$6889', img: image5 },
+    { id: 5, title: 'ffghgh', price: '$6889', img: image5 },
+   
   ];
   return (
     <>
@@ -26,7 +28,7 @@ function Home() {
           <div className="text-white max-w-2xl space-y-4">
             <p className="font-extrabold">
               <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-                IDENTiFYN™
+                NANODXCORP™
               </span>
             </p>
             <p className="font-semibold">
