@@ -6,6 +6,7 @@ import  Home  from './Components/Home';
 import  Contact  from './Components/Contact';
 import About from './Components/About'
 import Service from './Components/Service';
+import Signup from './Components/Signup';
 import Login from './Components/Login';
 import Product from './Components/Product';
 import More1 from './Components/More1';
@@ -22,6 +23,7 @@ function App() {
     <Routes>
       <Route path='/'element={<Home/>} />
       <Route path='/contact'element={<Contact/>} />
+      <Route path='/signup' element={<Signup/>}/>
       <Route path='/login'element={<Login/>} />
       <Route path='/about'element={<About/>} />
       <Route path='/service'element={<Service/>} />
