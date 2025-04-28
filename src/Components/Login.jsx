@@ -1,31 +1,72 @@
-import React, { useState } from "react";
+
+
+import React from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../features/userSlice";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    // console.log("Email:", email);
-    // console.log("Password:", password);
-    alert("Login successful");
-    dispatch(login());
-    navigate("/");
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const response = await fetch('http://localhost:3001/api/login');
+  //     const users = await response.json();
 
-    // ✅ Clear input fields after submit
-    setEmail("");
-    setPassword("");
+  //     const user = users.find(
+  //       (u) => u.email === data.email && u.password === data.password
+  //     );
+
+  //     if (user) {
+  //       alert("Login successful");
+  //       dispatch(login());
+  //       navigate("/");
+  //     } else {
+  //       alert("Invalid email or password");
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during login:', error);
+  //     alert("Something went wrong. Please try again later.");
+  //   }
+  // };
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+  
+      if (response.ok) {
+        const message = await response.text(); // backend sends text like 'Login successful!'
+        alert(message);
+        dispatch(login());
+        navigate('/');
+      } else if (response.status === 401) {
+        alert('Invalid email or password');
+      } else {
+        alert('Something went wrong. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Something went wrong. Please try again later.');
+    }
   };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 px-4">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md transition-all duration-300 hover:shadow-2xl">
@@ -36,51 +77,35 @@ function Login() {
           Please login to your account
         </p>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
             <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: "Enter a valid email",
+                },
+              })}
               type="email"
-              id="email"
-              placeholder="you@example.com"
+              placeholder="Enter your email"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-              required
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
             <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: "Password is required" })}
               type="password"
-              id="password"
-              placeholder="••••••••"
+              placeholder="Enter your password"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-              required
             />
-          </div>
-
-          <div className="flex justify-between items-center text-sm">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="accent-orange-500" />
-              Remember me
-            </label>
-            <a href="#" className="text-orange-500 hover:underline">
-              Forgot password?
-            </a>
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+            )}
           </div>
 
           <button
@@ -92,7 +117,7 @@ function Login() {
         </form>
 
         <p className="mt-6 text-sm text-center text-gray-600">
-          Don&apos;t have an account?{" "}
+          Don't have an account?{" "}
           <a href="/signup" className="text-orange-500 hover:underline">
             Sign up
           </a>
@@ -103,3 +128,4 @@ function Login() {
 }
 
 export default Login;
+
